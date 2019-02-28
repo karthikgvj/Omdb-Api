@@ -1,0 +1,55 @@
+<div class="container-fluid mb-5">
+<form class="form-inline">
+
+<div class="form-group">
+<label class="mb-2 mr-sm-2">Name</label>
+<input type="text" class="form-control mb-2 mr-sm-2" [(ngModel)]="userModel.title" [ngModelOptions]="{standalone: true}">
+</div>
+
+<div class="form-group">
+<label class="mb-2 mr-sm-2">Year</label>
+<input type="text" class="form-control mb-2 mr-sm-2" [(ngModel)]="userModel.year" [ngModelOptions]="{standalone: true}">
+</div>
+
+<div class="form-group">
+<label class="mb-2 mr-sm-2">ID</label>
+<input type="text" class="form-control mb-2 mr-sm-2" [(ngModel)]="userModel.id" [ngModelOptions]="{standalone: true}" placeholder="IMDb id">
+</div>
+
+<div class="form-group ">
+<select [(ngModel)]="userModel.type" [ngModelOptions]="{standalone: true}" class="form-control mb-2 mr-sm-2">
+<option *ngFor="let t of type">{{t}}</option>
+</select>
+</div>
+
+</form>
+
+<button class="btn btn-primary mb-2" (click)="search()">search</button>
+
+
+<div *ngIf="response">
+
+<div *ngIf="response.Response != 'False';else notFound">
+
+<table border="1" align="center">
+<tr><td>Title: </td> <td>{{response.Title}}</td>
+<tr><td>Cast: </td> <td>{{response.Actors}}</td>
+<tr><td>Country: </td> <td>{{response.Country}}</td>
+<tr><td>Genre: </td> <td>{{response.Genre}}</td>
+<tr><td>Language: </td> <td>{{response.Language}}</td>
+<tr><td>Year: </td> <td>{{response.Year}}</td>
+</table>
+
+<div *ngFor="let a of linkArray">
+<a href="{{a}}">Last seen movie Details</a>
+</div>
+</div>
+
+<ng-template #notFound>
+{{errorMsg}}
+</ng-template>
+
+</div>
+
+
+</div>
