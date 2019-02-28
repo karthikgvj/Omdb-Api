@@ -13,7 +13,7 @@ export class SearchmoviesComponent implements OnInit {
   
  type = ['movie','series','episode'];
  response: any;
- linkArray = [];
+ array = [];
 
 
  userModel = new User('', '', '', 'movie');
@@ -28,9 +28,13 @@ search(){
   this.http
   .get("http://www.omdbapi.com/?apikey=110ee006&t="+this.userModel.title+"&y="+this.userModel.year+"&type="+this.userModel.type+"&i="+this.userModel.id)
    .subscribe((data) =>{
-     this.linkArray.push("http://www.omdbapi.com/?apikey=110ee006&t="+this.userModel.title+"&y="+this.userModel.year+"&type="+this.userModel.type+"&i="+this.userModel.id)
-     this.response = data;
-     },(err) =>{
+     this.array.push("http://www.omdbapi.com/?apikey=110ee006&t="+this.userModel.title+"&y="+this.userModel.year+"&type="+this.userModel.type+"&i="+this.userModel.id)
+     
+     if (this.array.length > 5) {
+      this.array = this.array.slice(Math.max(this.array.length - 5, 1))
+    }
+    this.response = data
+  },(err) =>{
        console.log(err)
        this.errorMsg = "Movie Not Found";
      })
